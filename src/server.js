@@ -4,11 +4,11 @@ const logger = require('./middleware/logger');
 const path = require('path');
 const morgan = require('morgan');
 
-// route config
-const bootcamps = require('./routes/bootcamps');
-
 // Load env vars
 dotenv.config({ path: path.join(__dirname, '../.env') });
+
+// route config
+const bootcamps = require('./routes/bootcamps');
 
 require('./config/sequelize');
 
@@ -23,11 +23,15 @@ if (process.env.NODE_ENV === 'development') {
 // mount routers
 app.use('/api/v1/bootcamps', bootcamps);
 
-app.listen(process.env.PORT, () => {
-  console.log(process.env.NODE_ENV);
-  console.log(process.env.PORT);
-
+const server = app.listen(process.env.PORT, () => {
   console.log(
     `Server running in ${process.env.NODE_ENV} mode on port ${process.env.PORT}`
   );
+});
+
+// handle unhandled promise rejections
+process.on('unhandledRejection', (err, promise) => {
+  console.log(`Error: ${err.message}`);
+  // close server & exit process
+  server.close(() => process.exit(1));
 });

@@ -1,23 +1,20 @@
-const ListenerStory = require('../models/listenerstory');
+const models = require('../models');
+const ListenerStory = models.ListenerStory;
 
 // @desc   Get all bootcamps
 // @route  GET /api/v1/bootcamps
 // @access Public
-exports.getBootcamps = (req, res, next) => {
-  // res.status(200).json({
-  //   success: true,
-  //   data: [
-  //     { name: 'bootcamp1', date: '02-02-2022' },
-  //     { name: 'bootcamp2', date: '02-02-2022' },
-  //     { name: 'bootcamp3', date: '02-02-2022' },
-  //     { name: 'bootcamp4', date: '02-02-2022' },
-  //   ],
-  // });
-  // Find all users
-  // const stories = await ListenerStory.findAll();
-  // console.log(stories.every((user) => user instanceof ListenerStory)); // true
-  // console.log('All stories:', JSON.stringify(stories, null, 2));
-  // res.send(stories);
+exports.getBootcamps = async (req, res, next) => {
+  try {
+    // Find all
+    const stories = await ListenerStory.findAll();
+    console.log(stories.every((user) => user instanceof ListenerStory)); // true
+    console.log('All stories:', JSON.stringify(stories, null, 2));
+    res.send(stories);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, msg: `Server Error: ${error}` });
+  }
 };
 
 // @desc   Get single bootcamp
