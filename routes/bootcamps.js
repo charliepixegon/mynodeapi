@@ -17,4 +17,5 @@ router
   .get(getBootcamp)
   .put(updateBootcamp)
   .delete(deleteBootcamp);
+
 module.exports = router;

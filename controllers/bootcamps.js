@@ -20,6 +20,7 @@ exports.getBootcamp = (req, res, next) => {
   res.status(200).json({
     success: true,
     msg: `Here is Bootcamp ${req.params.id}`,
+    hello: req.hello,
   });
 };
 
