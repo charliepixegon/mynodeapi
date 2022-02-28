@@ -8,8 +8,9 @@ const morgan = require('morgan');
 const bootcamps = require('./routes/bootcamps');
 
 // Load env vars
-// dotenv.config({ path: './config/config.env' });
 dotenv.config({ path: path.join(__dirname, '../.env') });
+
+require('./config/sequelize');
 
 const app = express();
 
